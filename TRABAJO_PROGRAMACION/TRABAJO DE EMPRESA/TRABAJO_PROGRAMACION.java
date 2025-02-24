@@ -7,10 +7,15 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 /**
- * 
+ * Clase principal que maneja el registro de usuarios, eventos y organizadores
  */
-public class EJERCICIO2 {
-
+public class TRABAJO_PROGRAMACION {
+	/**
+	 * 
+	 * @param usuarios matriz donde se almacenan los datos de los usuarios
+	 * @param numusuario en que posicion se guardara el nuevo usuario
+	 * @return actualiza los datos del usuario
+	 */
 	public static int usuario(String[][] usuarios, int numusuario) {
 		Scanner teclado = new Scanner(System.in);
 		for (int i = 0; i < usuarios.length; i++) {
@@ -92,6 +97,12 @@ public class EJERCICIO2 {
 		return numusuario + 1;
 	}
 
+	/**
+	 * 
+	 * @param eventos matriz donde se almacenan los datos del evento
+	 * @param numeventos en que posicion se guardara el nuevo evento
+	 * @return actualiza los datos del evento
+	 */
 	public static int evento(String[][] eventos, int numeventos) {
 		Scanner teclado = new Scanner(System.in);
 		for (int i = 0; i < eventos.length; i++) {
@@ -213,6 +224,12 @@ public class EJERCICIO2 {
 		return numeventos + 1;
 	}
 
+	/**
+	 * 
+	 * @param organizadoresmatriz donde se almacenan los datos de los organizadores
+	 * @param numorganizadores en que posicion se guardara el nuevo organizador
+	 * @return actualiza los datos del organizador
+	 */
 	public static int organizador(String[][] organizadores, int numorganizadores) {
 		Scanner teclado = new Scanner(System.in);
 		for (int i = 0; i < organizadores.length; i++) {
@@ -300,6 +317,12 @@ public class EJERCICIO2 {
 		return numorganizadores + 1;
 	}
 
+	/**
+	 * 
+	 * @param Permite elegir entrar como usuario o organizador para registrar los datos
+	 * @param Permite elegir si quieres  añadir solo un usuario o organizador, o quieres añadir más más
+	 * @param args Argumento de línea de comandos.
+	 */
 	public static void main(String[] args) {
 		int maxUsuarios = 10;
 		int maxEventos = 5;
@@ -374,7 +397,5 @@ public class EJERCICIO2 {
 		}
 	}
 }
-
-
 
 
