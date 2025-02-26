@@ -1,14 +1,31 @@
+
+/**
+ * 
+ */
+
+import java.time.LocalDate;
 import java.util.Scanner;
 
+/**
+ * 
+ */
 public class ETAPA1 {
 	/**
 	 * 
-	 * @param usuarios matriz donde se almacenan los datos de los usuarios
+	 * @param usuarios   matriz donde se almacenan los datos de los usuarios
 	 * @param numusuario en que posicion se guardara el nuevo usuario
+	 * @param eventos  para ver los eventos en el que se puede inscribir el usuario
+	 * @param numeventos para ver cuantos eventos se han creado
 	 * @return actualiza los datos del usuario
 	 */
-	public static int usuario(String[][] usuarios, int numusuario) {
+	public static int usuario(String[][] usuarios, int numusuario, String[][] eventos, int numeventos) {
 		Scanner teclado = new Scanner(System.in);
+		System.out.println("¿Quieres cancelar el registro? (S/N)");
+		String cancelar = teclado.nextLine();
+		if (cancelar.equalsIgnoreCase("S")) {
+			System.out.println("Registro cancelado.");
+			return numusuario;
+		}
 		for (int i = 0; i < usuarios.length; i++) {
 			if (i == 0) {
 				while (true) {
@@ -36,7 +53,9 @@ public class ETAPA1 {
 						System.out.println("DNI no puede estar vacío");
 					}
 				}
+
 			}
+
 			if (i == 1) {
 				while (true) {
 					System.out.println("NOMBRE DEL USUARIO");
@@ -79,13 +98,45 @@ public class ETAPA1 {
 						} else {
 							System.out.println("La contraseña tiene  menos de 6 digitos");
 						}
-					} else if (finalcontraseña == null || finalcontraseña.isEmpty()) {
+					} else if (finalcontraseña.isEmpty()) {
 						System.out.println("Contraseña no puede estar vacío");
+					}
+				}
+			}
+			if (i == 4) {
+				System.out.println("EVENTOS QUE SE PUEDE INCRIBIR:");
+				for (int j = 0; j < numeventos; j++) {
+					System.out.println(eventos[j][1]);
+					teclado.nextLine();
+				}
+				while (true) {
+					if (numeventos == 1) {
+						System.out.println("Escriba el nombre del evento");
+						String eventoElegido = teclado.nextLine().trim();
+						boolean encontrado = false;
+						for (int j = 0; j < numeventos; j++) {
+							if (eventos[j][1].equalsIgnoreCase("NOMBRE DEL EVENTO:" + eventoElegido)) {
+								usuarios[numusuario][2] = "ESTA INSCRITO AL EVENTO:"
+										+ eventoElegido.replace("NOMBRE DEL EVENTO:", "");
+								encontrado = true;
+								break;
+							}
+						}
+
+						if (encontrado) {
+							break;
+						} else {
+							System.out.println("Evento no encontrado, intente de nuevo.");
+						}
+
+					} else {
+						System.out.println("No hay eventos");
+						break;
 					}
 				}
 			}
 		}
 		return numusuario + 1;
+
 	}
 }
-

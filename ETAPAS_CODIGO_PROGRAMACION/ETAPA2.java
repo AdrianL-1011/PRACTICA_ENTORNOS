@@ -2,9 +2,9 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 public class ETAPA2 {
-	/**
+/**
 	 * 
-	 * @param eventos matriz donde se almacenan los datos del evento
+	 * @param eventos    matriz donde se almacenan los datos del evento
 	 * @param numeventos en que posicion se guardara el nuevo evento
 	 * @return actualiza los datos del evento
 	 */
@@ -31,10 +31,9 @@ public class ETAPA2 {
 					teclado.nextLine();
 					String nombre = teclado.nextLine();
 					if (!nombre.isEmpty()) {
-						String nueva = nombre.substring(0, 1).toUpperCase() + nombre.substring(1);
-						eventos[numeventos][1] = "NOMBRE:" + nueva.trim();
+						eventos[numeventos][1] = "NOMBRE DEL EVENTO:" + nombre.trim();
 						break;
-					} else if (nombre == null || nombre.isEmpty()) {
+					} else if (nombre.isEmpty()) {
 						System.out.println("Nombre no puede estar vacío");
 					}
 				}
@@ -128,5 +127,4 @@ public class ETAPA2 {
 		}
 		return numeventos + 1;
 	}
-
 }

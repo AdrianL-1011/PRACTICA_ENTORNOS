@@ -7,17 +7,25 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 /**
- * Clase principal que maneja el registro de usuarios, eventos y organizadores
+ * 
  */
 public class TRABAJO_PROGRAMACION {
 	/**
 	 * 
-	 * @param usuarios matriz donde se almacenan los datos de los usuarios
+	 * @param usuarios   matriz donde se almacenan los datos de los usuarios
 	 * @param numusuario en que posicion se guardara el nuevo usuario
+	 * @param eventos  para ver los eventos en el que se puede inscribir el usuario
+	 * @param numeventos para ver cuantos eventos se han creado
 	 * @return actualiza los datos del usuario
 	 */
-	public static int usuario(String[][] usuarios, int numusuario) {
+	public static int usuario(String[][] usuarios, int numusuario, String[][] eventos, int numeventos) {
 		Scanner teclado = new Scanner(System.in);
+		System.out.println("¿Quieres cancelar el registro? (S/N)");
+		String cancelar = teclado.nextLine();
+		if (cancelar.equalsIgnoreCase("S")) {
+			System.out.println("Registro cancelado.");
+			return numusuario;
+		}
 		for (int i = 0; i < usuarios.length; i++) {
 			if (i == 0) {
 				while (true) {
@@ -45,7 +53,9 @@ public class TRABAJO_PROGRAMACION {
 						System.out.println("DNI no puede estar vacío");
 					}
 				}
+
 			}
+
 			if (i == 1) {
 				while (true) {
 					System.out.println("NOMBRE DEL USUARIO");
@@ -88,18 +98,51 @@ public class TRABAJO_PROGRAMACION {
 						} else {
 							System.out.println("La contraseña tiene  menos de 6 digitos");
 						}
-					} else if (finalcontraseña == null || finalcontraseña.isEmpty()) {
+					} else if (finalcontraseña.isEmpty()) {
 						System.out.println("Contraseña no puede estar vacío");
+					}
+				}
+			}
+			if (i == 4) {
+				System.out.println("EVENTOS QUE SE PUEDE INCRIBIR:");
+				for (int j = 0; j < numeventos; j++) {
+					System.out.println(eventos[j][1]);
+					teclado.nextLine();
+				}
+				while (true) {
+					if (numeventos == 1) {
+						System.out.println("Escriba el nombre del evento");
+						String eventoElegido = teclado.nextLine().trim();
+						boolean encontrado = false;
+						for (int j = 0; j < numeventos; j++) {
+							if (eventos[j][1].equalsIgnoreCase("NOMBRE DEL EVENTO:" + eventoElegido)) {
+								usuarios[numusuario][2] = "ESTA INSCRITO AL EVENTO:"
+										+ eventoElegido.replace("NOMBRE DEL EVENTO:", "");
+								encontrado = true;
+								break;
+							}
+						}
+
+						if (encontrado) {
+							break;
+						} else {
+							System.out.println("Evento no encontrado, intente de nuevo.");
+						}
+
+					} else {
+						System.out.println("No hay eventos");
+						break;
 					}
 				}
 			}
 		}
 		return numusuario + 1;
+
 	}
 
 	/**
 	 * 
-	 * @param eventos matriz donde se almacenan los datos del evento
+	 * @param eventos    matriz donde se almacenan los datos del evento
 	 * @param numeventos en que posicion se guardara el nuevo evento
 	 * @return actualiza los datos del evento
 	 */
@@ -126,10 +169,9 @@ public class TRABAJO_PROGRAMACION {
 					teclado.nextLine();
 					String nombre = teclado.nextLine();
 					if (!nombre.isEmpty()) {
-						String nueva = nombre.substring(0, 1).toUpperCase() + nombre.substring(1);
-						eventos[numeventos][1] = "NOMBRE:" + nueva.trim();
+						eventos[numeventos][1] = "NOMBRE DEL EVENTO:" + nombre.trim();
 						break;
-					} else if (nombre == null || nombre.isEmpty()) {
+					} else if (nombre.isEmpty()) {
 						System.out.println("Nombre no puede estar vacío");
 					}
 				}
@@ -319,15 +361,17 @@ public class TRABAJO_PROGRAMACION {
 
 	/**
 	 * 
-	 * @param Permite elegir entrar como usuario o organizador para registrar los datos
-	 * @param Permite elegir si quieres  añadir solo un usuario o organizador, o quieres añadir más más
-	 * @param args Argumento de línea de comandos.
+	 * @param Permite elegir entrar como usuario o organizador para registrar los
+	 * datos
+	 * @param Permite elegir si quieres añadir solo un usuario o organizador, o
+	 * quieres añadir más.
+	 *
 	 */
 	public static void main(String[] args) {
 		int maxUsuarios = 10;
-		int maxEventos = 5;
+		int maxEventos = 8;
 		int maxOrganizadores = 5;
-		String[][] usuarios = new String[maxUsuarios][4];
+		String[][] usuarios = new String[maxUsuarios][6];
 		String[][] eventos = new String[maxEventos][6];
 		String[][] organizadores = new String[maxOrganizadores][5];
 		int contadorUsuarios = 0;
@@ -338,32 +382,11 @@ public class TRABAJO_PROGRAMACION {
 		System.out.println("USUARIO O ORGANIZADOR");
 		String tipousuario = teclado.nextLine();
 		tipousuario = tipousuario.toUpperCase();
-		if (tipousuario.equals("USUARIO")) {
-			while (contadorUsuarios <= maxUsuarios) {
-				usuario(usuarios, contadorUsuarios);
-				contadorUsuarios++;
-				System.out.println("¿Deseas agregar otro usuario? (S/N)");
-				String respuesta = teclado.nextLine();
-				if (respuesta.equalsIgnoreCase("N")) {
-					break;
-				}
-			}
-			System.out.println("Datos del Usuario:");
-			for (int i = 0; i < contadorUsuarios; i++) {
-				for (String u : usuarios[i]) {
-					if (u != null) {
-						System.out.println(u);
-					}
-
-				}
-			}
-		}
-
 		if (tipousuario.equals("ORGANIZADOR")) {
 			while (contadorOrganizadores < maxOrganizadores) {
 				organizador(organizadores, contadorOrganizadores);
 				contadorOrganizadores++;
-				System.out.println("¿Deseas agregar otro usuario? (S/N)");
+				System.out.println("¿Deseas agregar otro organizador? (S/N)");
 				String respuesta = teclado.nextLine();
 				if (respuesta.equalsIgnoreCase("N")) {
 					break;
@@ -380,7 +403,7 @@ public class TRABAJO_PROGRAMACION {
 			while (contadorEventos < maxEventos) {
 				evento(eventos, contadorEventos);
 				contadorEventos++;
-				System.out.println("¿Deseas agregar otro usuario? (S/N)");
+				System.out.println("¿Deseas agregar otro evento? (S/N)");
 				String respuesta = teclado.nextLine();
 				if (respuesta.equalsIgnoreCase("N")) {
 					break;
@@ -392,10 +415,33 @@ public class TRABAJO_PROGRAMACION {
 					if (e != null) {
 						System.out.println(e);
 					}
-					teclado.close();
+
 				}
+			System.out.println("¿QUIERES CAMBIAR DE CUENTA (USUARIO)?");
+			tipousuario = teclado.nextLine();
 		}
+
+		if (tipousuario.equalsIgnoreCase("USUARIO")) {
+			while (contadorUsuarios < maxUsuarios) {
+				int nuevoContador = usuario(usuarios, contadorUsuarios, eventos, contadorEventos);
+				if (nuevoContador > contadorUsuarios) {
+					contadorUsuarios = nuevoContador;
+				}
+				System.out.println("¿Deseas agregar otro usuario? (S/N)");
+				String respuesta = teclado.nextLine();
+				if (respuesta.equalsIgnoreCase("N")) {
+					break;
+				}
+			}
+			System.out.println("Datos del Usuario:");
+			for (int i = 0; i < contadorUsuarios; i++) {
+				for (String u : usuarios[i]) {
+					if (u != null) {
+						System.out.println(u);
+					}
+				}
+			}
+		}
+		teclado.close();
 	}
 }
-
-

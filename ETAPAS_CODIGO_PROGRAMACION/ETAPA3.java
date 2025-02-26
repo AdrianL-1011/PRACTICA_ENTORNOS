@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class ETAPA3 {
+
 	/**
 	 * 
 	 * @param organizadoresmatriz donde se almacenan los datos de los organizadores
